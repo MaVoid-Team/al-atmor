@@ -1,0 +1,1714 @@
+{
+  "info": {
+    "_postman_id": "ec11e932-b277-40c9-ad52-ee2448bf20e6",
+    "name": "Nojoom Rakia",
+    "description": "Complete coverage of all endpoints in the codebase.\n\n**Variables:**\n- `base_url`: Defaults to http://localhost:3000/api/v1\n- `token`: Auto-populated via Login scripts.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "38671103",
+    "_collection_link": "https://mavoid.postman.co/workspace/Mavoid~84b37c58-7771-450e-89fe-5b6df5896100/collection/38671103-ec11e932-b277-40c9-ad52-ee2448bf20e6?action=share&source=collection_link&creator=38671103"
+  },
+  "item": [
+    {
+      "name": "0. Authentication",
+      "item": [
+        {
+          "name": "Register (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"customer@techstore.com\",\n    \"password\": \"pass1234\",\n    \"role\": \"customer\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "register"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login (Auto-Save Token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.token) {",
+                  "    pm.collectionVariables.set(\"token\", jsonData.token);",
+                  "    console.log(\"Token saved: \" + jsonData.token);",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"admin@techstore.com\",\n    \"password\": \"admin123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "1. Manufacturers",
+      "item": [
+        {
+          "name": "Get All",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/manufacturers?page=1&limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["manufacturers"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get One",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/manufacturers/1",
+              "host": ["{{base_url}}"],
+              "path": ["manufacturers", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create (Admin)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Corsair\",\n    \"logoUrl\": \"https://corsair.com/logo.png\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/manufacturers",
+              "host": ["{{base_url}}"],
+              "path": ["manufacturers"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update (Admin)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Corsair Gaming\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/manufacturers/1",
+              "host": ["{{base_url}}"],
+              "path": ["manufacturers", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete (Admin)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/manufacturers/1",
+              "host": ["{{base_url}}"],
+              "path": ["manufacturers", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "2. Product Types",
+      "item": [
+        {
+          "name": "Get All",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/product-types",
+              "host": ["{{base_url}}"],
+              "path": ["product-types"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create (Admin)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"SSD\",\n    \"allowedAttributes\": [\"capacity\", \"interface\", \"read_speed\", \"write_speed\"]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/product-types",
+              "host": ["{{base_url}}"],
+              "path": ["product-types"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update (Admin)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"NVMe SSD\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/product-types/1",
+              "host": ["{{base_url}}"],
+              "path": ["product-types", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete (Admin)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/product-types/1",
+              "host": ["{{base_url}}"],
+              "path": ["product-types", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "3. Categories",
+      "item": [
+        {
+          "name": "Get Tree Structure",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/categories/tree",
+              "host": ["{{base_url}}"],
+              "path": ["categories", "tree"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All (Flat List)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/categories?page=1&limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["categories"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create (Admin)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Storage",
+                  "type": "text"
+                },
+                {
+                  "key": "slug",
+                  "value": "storage",
+                  "type": "text"
+                },
+                {
+                  "key": "parentId",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": ""
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/categories",
+              "host": ["{{base_url}}"],
+              "path": ["categories"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update (Admin)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Storage Devices",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/categories/1",
+              "host": ["{{base_url}}"],
+              "path": ["categories", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete (Admin)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/categories/1",
+              "host": ["{{base_url}}"],
+              "path": ["categories", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "4. Products",
+      "item": [
+        {
+          "name": "Get All (Paginated)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/products?page=1&limit=5",
+              "host": ["{{base_url}}"],
+              "path": ["products"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "5"
+                },
+                {
+                  "key": "categoryId",
+                  "value": "4",
+                  "disabled": true
+                },
+                {
+                  "key": "manufacturerId",
+                  "value": "1",
+                  "disabled": true
+                },
+                {
+                  "key": "in_stock",
+                  "value": "false",
+                  "disabled": true
+                },
+                {
+                  "key": "search",
+                  "value": "msi",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get One",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/products/1",
+              "host": ["{{base_url}}"],
+              "path": ["products", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create (Admin)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Samsung 990 Pro 1TB",
+                  "type": "text"
+                },
+                { "key": "sku", "value": "SAMS-990-1TB", "type": "text" },
+                { "key": "price", "value": "129.99", "type": "text" },
+                { "key": "manufacturerId", "value": "1", "type": "text" },
+                { "key": "categoryId", "value": "1", "type": "text" },
+                { "key": "productTypeId", "value": "1", "type": "text" },
+                { "key": "initialStock", "value": "20", "type": "text" },
+                {
+                  "key": "specs",
+                  "value": "{\n  \"capacity\": \"1TB\",\n  \"interface\": \"PCIe 4.0\",\n  \"read_speed\": \"7450 MB/s\"\n}",
+                  "type": "text"
+                },
+                { "key": "image", "type": "file", "src": "" }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/products",
+              "host": ["{{base_url}}"],
+              "path": ["products"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update (Admin)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "price", "value": "119.99", "type": "text" },
+                { "key": "image", "type": "file", "src": "", "disabled": true }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/products/1",
+              "host": ["{{base_url}}"],
+              "path": ["products", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete (Admin)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/products/1",
+              "host": ["{{base_url}}"],
+              "path": ["products", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buy (Auth User)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/products/1/buy",
+              "host": ["{{base_url}}"],
+              "path": ["products", "1", "buy"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Restock (Admin)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"quantity\": 50\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/products/1/restock",
+              "host": ["{{base_url}}"],
+              "path": ["products", "1", "restock"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "5. Cart",
+      "item": [
+        {
+          "name": "Get Cart",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/cart?locationId=1&discountCode=SAVE10",
+              "host": ["{{base_url}}"],
+              "path": ["cart"],
+              "query": [
+                { "key": "locationId", "value": "1", "disabled": true },
+                { "key": "discountCode", "value": "SAVE10", "disabled": true }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add item to cart (Product)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"productId\": 1,\r\n  \"quantity\": 2\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/cart/items",
+              "host": ["{{base_url}}"],
+              "path": ["cart", "items"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add item to cart (Bundle)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"bundleId\": 1,\r\n  \"quantity\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/cart/items",
+              "host": ["{{base_url}}"],
+              "path": ["cart", "items"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update item quantity",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"quantity\": 3\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/cart/items/1?type=product",
+              "host": ["{{base_url}}"],
+              "path": ["cart", "items", "1"],
+              "query": [{ "key": "type", "value": "product" }]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Remove item from cart",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/cart/items/1?type=product",
+              "host": ["{{base_url}}"],
+              "path": ["cart", "items", "1"],
+              "query": [{ "key": "type", "value": "product" }]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Clear Cart",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/cart",
+              "host": ["{{base_url}}"],
+              "path": ["cart"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get cart item count (for badge)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/cart/count",
+              "host": ["{{base_url}}"],
+              "path": ["cart", "count"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Check cart stock (validation before checkout)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/cart/validate",
+              "host": ["{{base_url}}"],
+              "path": ["cart", "validate"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Checkout (create order)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"paymentType\": \"cash\",\n    \"locationId\": 1,\n    \"discountCode\": \"SAVE10\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/cart/checkout",
+              "host": ["{{base_url}}"],
+              "path": ["cart", "checkout"]
+            }
+          },
+          "response": []
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{token}}",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "List My Orders",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                { "key": "token", "value": "{{token}}", "type": "string" }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/orders?page=1&limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["orders"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get My Order",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                { "key": "token", "value": "{{token}}", "type": "string" }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/orders/{{orderId}}",
+              "host": ["{{base_url}}"],
+              "path": ["orders", "{{orderId}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "6. Address",
+      "item": [
+        {
+          "name": "Get All addresses",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/addresses",
+              "host": ["{{base_url}}"],
+              "path": ["addresses"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Default Address",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/addresses/default",
+              "host": ["{{base_url}}"],
+              "path": ["addresses", "default"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Specific Address",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/addresses/{{addressId}}",
+              "host": ["{{base_url}}"],
+              "path": ["addresses", "{{addressId}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Address",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"recipientName\": \"Mr. Mohammad S. ALI\",\r\n  \"streetAddress\": \"8228 King Abdulaziz Rd.\",\r\n  \"district\": \"2121 Alamal Dist.\",\r\n  \"postalCode\": \"12463\",\r\n  \"city\": \"RIYADH\",\r\n  \"phoneNumber\": \"+966501234567\", // optional\r\n  \"buildingNumber\": \"11\", //optional\r\n  \"secondaryNumber\": \"44\", //optional\r\n  \"isDefault\": true, // optional\r\n  \"label\": \"Home\" //optional\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/addresses",
+              "host": ["{{base_url}}"],
+              "path": ["addresses"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Address",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"recipientName\": \"Mr. Mohammad S. ALI\",\r\n  \"streetAddress\": \"8228 King Abdulaziz Rd.\",\r\n  \"district\": \"2121 Alamal Dist.\",\r\n  \"postalCode\": \"12463\",\r\n  \"city\": \"RIYADH\",\r\n  \"phoneNumber\": \"+966501234567\", // optional\r\n  \"buildingNumber\": \"11\", //optional\r\n  \"secondaryNumber\": \"44\", //optional\r\n  \"isDefault\": true, // optional\r\n  \"label\": \"Home\" //optional\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/addresses/{{addressId}}",
+              "host": ["{{base_url}}"],
+              "path": ["addresses", "{{addressId}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Set address as default",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"recipientName\": \"Mr. Mohammad S. ALI\",\r\n  \"streetAddress\": \"8228 King Abdulaziz Rd.\",\r\n  \"district\": \"2121 Alamal Dist.\",\r\n  \"postalCode\": \"12463\",\r\n  \"city\": \"RIYADH\",\r\n  \"phoneNumber\": \"+966501234567\", // optional\r\n  \"buildingNumber\": \"11\", //optional\r\n  \"secondaryNumber\": \"44\", //optional\r\n  \"isDefault\": true, // optional\r\n  \"label\": \"Home\" //optional\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/addresses/{{addressId}}/default",
+              "host": ["{{base_url}}"],
+              "path": ["addresses", "{{addressId}}", "default"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Address",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"recipientName\": \"Mr. Mohammad S. ALI\",\r\n  \"streetAddress\": \"8228 King Abdulaziz Rd.\",\r\n  \"district\": \"2121 Alamal Dist.\",\r\n  \"postalCode\": \"12463\",\r\n  \"city\": \"RIYADH\",\r\n  \"phoneNumber\": \"+966501234567\", // optional\r\n  \"buildingNumber\": \"11\", //optional\r\n  \"secondaryNumber\": \"44\", //optional\r\n  \"isDefault\": true, // optional\r\n  \"label\": \"Home\" //optional\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/addresses/{{addressId}}",
+              "host": ["{{base_url}}"],
+              "path": ["addresses", "{{addressId}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "7. Admin",
+      "item": [
+        {
+          "name": "Users",
+          "item": [
+            {
+              "name": "List Users (paginated)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/admin/users?page=1&limit=10",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "users"],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get User",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/admin/users/{{userId}}",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "users", "{{userId}}"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create User",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"email\": \"ops@techstore.com\",\n    \"password\": \"StrongPass123!\",\n    \"role\": \"manager\",\n    \"firstName\": \"Ops\",\n    \"lastName\": \"Lead\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/users",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "users"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update User",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"firstName\": \"Operations\",\n    \"lastName\": \"Manager\",\n    \"role\": \"admin\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/users/{{userId}}",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "users", "{{userId}}"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete User",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/admin/users/{{userId}}",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "users", "{{userId}}"]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Orders",
+          "item": [
+            {
+              "name": "List Orders (filterable)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/admin/orders?page=1&limit=10",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "orders"],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "1",
+                      "disabled": true
+                    },
+                    {
+                      "key": "status",
+                      "value": "pending",
+                      "disabled": true
+                    },
+                    {
+                      "key": "period",
+                      "value": "month",
+                      "disabled": true
+                    },
+                    {
+                      "key": "date",
+                      "value": "2025-12-01",
+                      "disabled": true
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "2025-12-01",
+                      "disabled": true
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "2025-12-31",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Order Detail",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/admin/orders/{{orderId}}",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "orders", "{{orderId}}"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Analytics Summary",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/admin/orders/analytics/summary?period=month",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "orders", "analytics", "summary"],
+                  "query": [
+                    {
+                      "key": "period",
+                      "value": "month"
+                    },
+                    {
+                      "key": "date",
+                      "value": "2025-12-01",
+                      "disabled": true
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "2025-12-01",
+                      "disabled": true
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "2025-12-31",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update Order (Admin)",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"processing\",\n  \"paymentStatus\": \"paid\",\n  \"metadata\": { \"note\": \"Updated by admin\" }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/orders/{{orderId}}",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "orders", "{{orderId}}"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Order (Admin)",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/admin/orders/{{orderId}}",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "orders", "{{orderId}}"]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Locations",
+          "item": [
+            {
+              "name": "List Locations",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/admin/locations",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "locations"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Location By ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/admin/locations/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "locations", "1"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Location",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Riyadh Zone 1\",\n    \"city\": \"Riyadh\",\n    \"taxRate\": 0.15,\n    \"shippingRate\": 25.00,\n    \"active\": true\n}",
+                  "options": { "raw": { "language": "json" } }
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/locations",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "locations"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update Location",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Riyadh Zone 1 Updated\",\n    \"city\": \"Riyadh\",\n    \"taxRate\": 0.16,\n    \"shippingRate\": 30.00,\n    \"active\": true\n}",
+                  "options": { "raw": { "language": "json" } }
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/locations/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "locations", "1"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Location",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/admin/locations/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "locations", "1"]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Discounts",
+          "item": [
+            {
+              "name": "List Discounts (Paginated)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/admin/discounts?page=1&limit=10&activeOnly=false",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "discounts"],
+                  "query": [
+                    { "key": "page", "value": "1" },
+                    { "key": "limit", "value": "10" },
+                    { "key": "activeOnly", "value": "false" }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Discount By ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/admin/discounts/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "discounts", "1"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Discount",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"code\": \"SAVE10\",\n    \"type\": \"percentage\",\n    \"value\": 10,\n    \"minPurchase\": 100,\n    \"validFrom\": \"2026-01-01\",\n    \"validTo\": \"2026-12-31\",\n    \"active\": true\n}",
+                  "options": { "raw": { "language": "json" } }
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/discounts",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "discounts"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update Discount",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"value\": 15,\n    \"active\": true\n}",
+                  "options": { "raw": { "language": "json" } }
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/discounts/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "discounts", "1"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Discount",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/admin/discounts/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "discounts", "1"]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Bundles",
+          "item": [
+            {
+              "name": "List Bundles (Paginated)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/admin/bundles?page=1&limit=10&activeOnly=false",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "bundles"],
+                  "query": [
+                    { "key": "page", "value": "1" },
+                    { "key": "limit", "value": "10" },
+                    { "key": "activeOnly", "value": "false" }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Bundle By ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/admin/bundles/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "bundles", "1"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Bundle (Formdata)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    { "key": "name", "value": "Gaming Starter Pack", "type": "text" },
+                    { "key": "description", "value": "Everything you need to start gaming", "type": "text" },
+                    { "key": "price", "value": "250.00", "type": "text" },
+                    { "key": "active", "value": "true", "type": "text" },
+                    { "key": "products", "value": "[{\"productId\": 1, \"quantity\": 1}, {\"productId\": 2, \"quantity\": 1}]", "type": "text" },
+                    { "key": "image", "type": "file", "src": "" }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/bundles",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "bundles"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update Bundle (Formdata)",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    { "key": "name", "value": "Gaming Pro Pack", "type": "text" },
+                    { "key": "price", "value": "299.99", "type": "text" },
+                    { "key": "active", "value": "true", "type": "text" },
+                    { "key": "image", "type": "file", "src": "", "disabled": true }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/bundles/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "bundles", "1"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Bundle",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/admin/bundles/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["admin", "bundles", "1"]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{token}}",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "8. Bundles",
+      "item": [
+        {
+          "name": "Get All Bundles (Paginated)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/bundles?page=1&limit=10&activeOnly=true",
+              "host": ["{{base_url}}"],
+              "path": ["bundles"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" },
+                { "key": "activeOnly", "value": "true" }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Bundle Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/bundles/1",
+              "host": ["{{base_url}}"],
+              "path": ["bundles", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "9. Locations",
+      "item": [
+        {
+          "name": "Get All Locations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/locations",
+              "host": ["{{base_url}}"],
+              "path": ["locations"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Location By City",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/locations/city/Riyadh",
+              "host": ["{{base_url}}"],
+              "path": ["locations", "city", "Riyadh"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Locations By City",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/locations/cities/Riyadh?activeOnly=false",
+              "host": ["{{base_url}}"],
+              "path": ["locations", "cities", "Riyadh"],
+              "query": [
+                {
+                  "key": "activeOnly",
+                  "value": "false"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "10. Discounts",
+      "item": [
+        {
+          "name": "Validate Discount",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"code\": \"SAVE10\",\n    \"subtotal\": 500\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/discounts/validate",
+              "host": ["{{base_url}}"],
+              "path": ["discounts", "validate"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["health"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000/api/v1",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

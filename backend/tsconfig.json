@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    /* --- Output & Environment --- */
+    "target": "es2020",
+    "module": "commonjs",
+    "rootDir": ".",                     /* Look for files in current directory */
+    "outDir": "./dist",
+    
+    /* --- Interop & Resolution --- */
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+
+    /* --- Types --- */
+    "types": ["node", "jest"],          /* Fixes the 'describe' error */
+
+    /* --- Strictness --- */
+    "strict": true,
+    "strictPropertyInitialization": false,
+
+    /* --- Decorators (Required for Sequelize) --- */
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
+    /* --- Misc --- */
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  /* By removing "include", TypeScript defaults to "find everything in this folder" */
+  "exclude": [
+    "node_modules", 
+    "dist",
+    "coverage"
+  ]
+}
