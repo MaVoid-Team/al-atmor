@@ -18,7 +18,7 @@ export function Footer() {
                 <div className="mb-8 pb-8 border-b border-white/10">
                     <div className="flex flex-col items-center md:items-start gap-4">
                         <div className="flex flex-col sm:flex-row items-center gap-3">
-                            <div className="relative h-20 w-38 sm:h-24 sm:w-24 md:h-28 md:w-48 lg:h-32 lg:w-64 overflow-hidden rounded-lg shrink-0 bg-white/10 p-2 backdrop-blur-sm">
+                            <div className="relative h-20 w-20 sm:h-24 sm:w-24 md:h-28 md:w-28 overflow-hidden shrink-0">
                                 <Image
                                     src="/Logo.png"
                                     alt="Al-Atmour Group Logo"

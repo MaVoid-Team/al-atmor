@@ -31,7 +31,7 @@ export function Navbar() {
                 {/* Left: Logo */}
                 <div className="flex items-center shrink-0">
                     <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-90">
-                        <div className="relative h-24 w-24 sm:h-24 sm:w-24 md:h-24 md:w-16 lg:h-32 lg:w-32 overflow-hidden rounded-lg bg-white/10 backdrop-blur-sm p-1">
+                        <div className="relative h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 overflow-hidden">
                             <Image
                                 src="/Logo.png"
                                 alt="Al-Atmour Group Logo"
@@ -40,7 +40,7 @@ export function Navbar() {
                                 priority
                             />
                         </div>
-                        <span className="hidden font-bold tracking-tight lg:inline-block text-primary-foreground text-xl">
+                        <span className="hidden font-bold tracking-tight lg:inline-block text-primary-foreground text-xl capitalize">
                             {t('companyName')}
                         </span>
                     </Link>
