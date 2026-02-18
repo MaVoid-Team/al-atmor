@@ -21,17 +21,14 @@ export function Header() {
 
     return (
         <section className="relative w-full h-[400px] sm:h-[500px] md:h-[600px] flex items-center justify-center overflow-hidden">
-            {/* Background Video with Overlay */}
+            {/* Background Image with Overlay */}
             <div className="absolute inset-0 z-0">
-                <video
-                    className="absolute inset-0 w-full h-full object-cover scale-105"
-                    src="/upscaled-hero-animated.mp4"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
+                <img
+                    className="absolute inset-0 w-full h-full object-cover"
+                    src="/wholesale-hero.jpg"
+                    alt="Wholesale Trade Market"
                 />
-                <div className={`absolute inset-0 ${isRtl ? 'bg-linear-to-l' : 'bg-linear-to-r'} from-black/60 via-black/40 to-transparent`} />
+                <div className={`absolute inset-0 ${isRtl ? 'bg-linear-to-l' : 'bg-linear-to-r'} from-black/80 via-black/50 to-transparent`} />
             </div>
 
             {/* Content */}
