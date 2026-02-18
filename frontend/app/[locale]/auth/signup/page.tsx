@@ -64,12 +64,12 @@ export default function SignupPage() {
             <Card className="w-full max-w-md">
                 <form onSubmit={handleSubmit}>
                     <CardHeader className="space-y-1 flex flex-col items-center text-center">
-                        <div className="relative h-18 w-44 sm:h-24 sm:w-40 md:h-36 md:w-52 lg:h-48 lg:w-64 mb-2 overflow-hidden rounded-lg">
+                        <div className="relative h-24 w-24 sm:h-28 sm:w-28 md:h-32 md:w-32 mb-2 overflow-hidden">
                             <Image
                                 src="/Logo.png"
                                 alt={tFooter('companyName')}
                                 fill
-                                className="object-cover"
+                                className="object-contain"
                                 priority
                             />
                         </div>

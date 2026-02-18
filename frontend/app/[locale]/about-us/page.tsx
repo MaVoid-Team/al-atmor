@@ -21,12 +21,12 @@ export default function AboutUsPage() {
                 {/* Header */}
                 <div className="mb-8 sm:mb-12 space-y-4 sm:space-y-6 text-center">
                     <div className="flex justify-center mb-4 sm:mb-6">
-                        <div className="relative h-20 w-20 sm:h-24 sm:w-24 md:h-32 md:w-32 overflow-hidden rounded-2xl">
+                        <div className="relative h-20 w-20 sm:h-24 sm:w-24 md:h-32 md:w-32 overflow-hidden">
                             <Image
                                 src="/Logo.png"
                                 alt="Al-Atmour Group Logo"
                                 fill
-                                className="object-cover"
+                                className="object-contain"
                             />
                         </div>
                     </div>
