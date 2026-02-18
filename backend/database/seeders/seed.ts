@@ -23,119 +23,117 @@ export async function seed() {
     // ------------------------------------
     // 2. Manufacturers
     // ------------------------------------
-    const [asus, msi, intel, amd, logitech] = await Promise.all([
+    const [almarai, juhayna, nestle, kelloggs, kraft] = await Promise.all([
       Manufacturer.create({
-        name: "ASUS",
-        logoUrl: "https://logo.com/asus.png",
+        name: "Almarai",
+        logoUrl: "https://example.com/almarai.png",
       }),
-      Manufacturer.create({ name: "MSI", logoUrl: "https://logo.com/msi.png" }),
+      Manufacturer.create({ name: "Juhayna", logoUrl: "https://example.com/juhayna.png" }),
       Manufacturer.create({
-        name: "Intel",
-        logoUrl: "https://logo.com/intel.png",
+        name: "Nestle",
+        logoUrl: "https://example.com/nestle.png",
       }),
-      Manufacturer.create({ name: "AMD", logoUrl: "https://logo.com/amd.png" }),
+      Manufacturer.create({ name: "Kellogg's", logoUrl: "https://example.com/kelloggs.png" }),
       Manufacturer.create({
-        name: "Logitech",
-        logoUrl: "https://logo.com/logitech.png",
+        name: "Kraft",
+        logoUrl: "https://example.com/kraft.png",
       }),
     ]);
 
     // ------------------------------------
     // 3. Product Types
     // ------------------------------------
-    const typeGPU = await ProductType.create({
-      name: "Graphics Card",
-      allowedAttributes: ["chipset", "vram", "interface", "length_mm"],
+    const typeDairy = await ProductType.create({
+      name: "Dairy & Eggs",
+      allowedAttributes: ["weight", "volume", "expiry_date", "fat_content"],
     });
-    const typeCPU = await ProductType.create({
-      name: "Processor",
-      allowedAttributes: ["socket", "cores", "threads", "base_clock"],
+    const typeGrains = await ProductType.create({
+      name: "Pantry Essentials",
+      allowedAttributes: ["weight", "origin", "expiry_date", "packaging_type"],
     });
-    const typeMouse = await ProductType.create({
-      name: "Mouse",
-      allowedAttributes: ["dpi", "connection_type", "buttons"],
+    const typeBeverage = await ProductType.create({
+      name: "Beverages",
+      allowedAttributes: ["volume", "flavor", "is_carbonated"],
     });
 
     // ------------------------------------
     // 4. Categories
     // ------------------------------------
-    const hardware = await Category.create({
-      name: "Hardware",
-      slug: "hardware",
+    const grocery = await Category.create({
+      name: "Grocery",
+      slug: "grocery",
     });
-    const peripherals = await Category.create({
-      name: "Peripherals",
-      slug: "peripherals",
+    const freshProduce = await Category.create({
+      name: "Fresh Produce",
+      slug: "fresh-produce",
     });
-    const components = await Category.create({
-      name: "Components",
-      slug: "components",
-      parentId: hardware.id,
+    const pantry = await Category.create({
+      name: "Pantry",
+      slug: "pantry",
+      parentId: grocery.id,
     });
-    const catGpu = await Category.create({
-      name: "Graphics Cards",
-      slug: "gpu",
-      parentId: components.id,
+    const catMilk = await Category.create({
+      name: "Milk & Dairy",
+      slug: "milk-dairy",
+      parentId: grocery.id,
     });
-    const catCpu = await Category.create({
-      name: "Processors",
-      slug: "cpu",
-      parentId: components.id,
+    const catRice = await Category.create({
+      name: "Rice & Grains",
+      slug: "rice-grains",
+      parentId: pantry.id,
     });
-    const catMouse = await Category.create({
-      name: "Mice",
-      slug: "mice",
-      parentId: peripherals.id,
+    const catJuice = await Category.create({
+      name: "Juices & Drinks",
+      slug: "juices",
+      parentId: grocery.id,
     });
 
     // ------------------------------------
     // 5. Products & Inventory
     // ------------------------------------
     const p1 = await Product.create({
-      name: "ROG Strix GeForce RTX 4090 OC Edition",
-      sku: "ASUS-4090-OC",
-      price: 1999.99,
-      manufacturerId: asus.id,
-      categoryId: catGpu.id,
-      productTypeId: typeGPU.id,
-      specs: { chipset: "NVIDIA GeForce RTX 4090", vram: "24GB GDDR6X" },
+      name: "Almarai Fresh Milk Full Fat 1L",
+      sku: "ALM-MILK-1L",
+      price: 45.00,
+      manufacturerId: almarai.id,
+      categoryId: catMilk.id,
+      productTypeId: typeDairy.id,
+      specs: { volume: "1L", fat_content: "Full Fat", origin: "Egypt" },
     });
-    // Note: ensure your Inventory model has CreationOptional on 'reserved' or pass 0
-    await Inventory.create({ productId: p1.id, quantity: 12, reserved: 0 });
+    await Inventory.create({ productId: p1.id, quantity: 150, reserved: 0 });
 
     const p2 = await Product.create({
-      name: "Intel Core i9-13900K",
-      sku: "INTEL-13900K",
-      price: 589.0,
-      manufacturerId: intel.id,
-      categoryId: catCpu.id,
-      productTypeId: typeCPU.id,
-      specs: { socket: "LGA 1700", cores: "24" },
+      name: "Nestlé Nescafé Classic 200g",
+      sku: "NST-COFFEE-200G",
+      price: 185.00,
+      manufacturerId: nestle.id,
+      categoryId: pantry.id,
+      productTypeId: typeGrains.id,
+      specs: { weight: "200g", type: "Instant Coffee" },
     });
-    await Inventory.create({ productId: p2.id, quantity: 2, reserved: 0 });
+    await Inventory.create({ productId: p2.id, quantity: 45, reserved: 0 });
 
     const p3 = await Product.create({
-      name: "Logitech G Pro X Superlight",
-      sku: "LOGI-GPRO-BLK",
-      price: 149.99,
-      manufacturerId: logitech.id,
-      categoryId: catMouse.id,
-      productTypeId: typeMouse.id,
-      specs: { dpi: "25,600", weight: "63g" },
+      name: "Juhayna Pure Apple Juice 1L",
+      sku: "JUH-APPLE-1L",
+      price: 35.00,
+      manufacturerId: juhayna.id,
+      categoryId: catJuice.id,
+      productTypeId: typeBeverage.id,
+      specs: { volume: "1L", flavor: "Apple" },
     });
-    await Inventory.create({ productId: p3.id, quantity: 0, reserved: 0 });
+    await Inventory.create({ productId: p3.id, quantity: 80, reserved: 0 });
 
     const p4 = await Product.create({
-      name: "MSI RTX 5090 Prototype",
-      sku: "MSI-5090-PROTO",
-      price: 2499.99,
-      manufacturerId: msi.id,
-      categoryId: catGpu.id,
-      productTypeId: typeGPU.id,
-      stockStatusOverride: "pre_order",
-      specs: { chipset: "NVIDIA RTX 5090" },
+      name: "Kraft Cheddar Cheese 480g",
+      sku: "KFT-CHEDDAR-480G",
+      price: 210.00,
+      manufacturerId: kraft.id,
+      categoryId: catMilk.id,
+      productTypeId: typeDairy.id,
+      specs: { weight: "480g", type: "Cheddar" },
     });
-    await Inventory.create({ productId: p4.id, quantity: 0, reserved: 0 });
+    await Inventory.create({ productId: p4.id, quantity: 30, reserved: 0 });
 
     console.log("✅ Data seeded successfully.");
   } catch (error) {
