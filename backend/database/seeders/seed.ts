@@ -5,7 +5,8 @@ import {
   ProductType,
   Product,
   Inventory,
-} from "../../types/index.js"; // Adjust path to point to your models/index.ts
+  User,
+} from "../../types/index"; // Adjust path to point to your models/index.ts
 
 export async function seed() {
   console.log("🌱 Starting Database Seed...");
@@ -16,9 +17,21 @@ export async function seed() {
     // 1. Clear existing data (Optional: prevents duplicates if you run seed twice)
     // We use TRUNCATE with CASCADE to wipe data but keep structure
     await sequelize.query(
-      'TRUNCATE TABLE "inventories", "products", "categories", "manufacturers", "product_types" RESTART IDENTITY CASCADE;'
+      'TRUNCATE TABLE "users", "inventories", "products", "categories", "manufacturers", "product_types" RESTART IDENTITY CASCADE;'
     );
     console.log("🧹 Tables truncated.");
+
+    // ------------------------------------
+    // 1b. Create Admin Account
+    // ------------------------------------
+    await User.create({
+      firstName: "Admin",
+      lastName: "User",
+      email: "admin@al-atmor.com",
+      password: "adminPassword123", // User model hashes this in beforeCreate hook
+      role: "admin",
+    });
+    console.log("👤 Admin account created (admin@al-atmor.com).");
 
     // ------------------------------------
     // 2. Manufacturers
@@ -149,8 +162,9 @@ export async function seedIfEmpty() {
   try {
     const productCount = await Product.count();
     const manufacturerCount = await Manufacturer.count();
+    const userCount = await User.count();
 
-    if (productCount > 0 || manufacturerCount > 0) {
+    if (productCount > 0 || manufacturerCount > 0 || userCount > 0) {
       console.log("ℹ️  Database already contains data — skipping seed.");
       return;
     }
@@ -161,4 +175,39 @@ export async function seedIfEmpty() {
     console.error("❌ seedIfEmpty error:", err);
     // do not rethrow — server startup should decide how to handle
   }
+}
+
+/**
+ * Ensures at least one admin user exists in the system.
+ */
+export async function ensureAdminExists() {
+  try {
+    const admin = await User.findOne({ where: { role: 'admin' } });
+    if (!admin) {
+      console.log("ℹ️ No admin user found. Creating default admin...");
+      await User.create({
+        firstName: "Admin",
+        lastName: "User",
+        email: "admin@al-atmor.com",
+        password: "adminPassword123",
+        role: "admin",
+      });
+      console.log("✅ Default admin account created (admin@al-atmor.com).");
+    }
+  } catch (err) {
+    console.error("❌ ensureAdminExists error:", err);
+  }
+}
+
+// If this script is run directly, execute the seed function
+if (require.main === module) {
+  seed()
+    .then(() => {
+      console.log("🌱 Seeding completed successfully.");
+      process.exit(0);
+    })
+    .catch((err) => {
+      console.error("❌ Seeding failed:", err);
+      process.exit(1);
+    });
 }

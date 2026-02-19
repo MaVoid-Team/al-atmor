@@ -58,7 +58,7 @@ module.exports = {
     await queryInterface.sequelize.query(`
       DROP TRIGGER IF EXISTS products_search_vector_trigger ON products;
     `);
-    
+
     await queryInterface.sequelize.query(`
       DROP FUNCTION IF EXISTS products_search_vector_update();
     `);
@@ -66,6 +66,11 @@ module.exports = {
     // Drop index
     await queryInterface.sequelize.query(`
       DROP INDEX IF EXISTS products_search_vector_idx;
+    `);
+
+    // Drop dependent view first
+    await queryInterface.sequelize.query(`
+      DROP VIEW IF EXISTS product_display_view CASCADE;
     `);
 
     // Drop column
