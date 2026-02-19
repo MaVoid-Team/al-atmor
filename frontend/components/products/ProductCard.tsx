@@ -84,13 +84,13 @@ export function ProductCard({
     const getStockBadgeColor = (stockLabel: string) => {
         switch (stockLabel) {
             case 'in_stock':
-                return 'bg-secondary/10 text-secondary-foreground border-secondary/20'
+                return 'bg-green-500/10 text-green-600 dark:text-green-400 border-green-500/20'
             case 'low_stock':
-                return 'bg-secondary/10 text-secondary-foreground border-secondary/20'
+                return 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20'
             case 'out_of_stock':
-                return 'bg-destructive/10 text-destructive border-destructive/20'
+                return 'bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20'
             case 'pre_order':
-                return 'bg-primary/10 text-primary border-primary/20'
+                return 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20'
             default:
                 return 'bg-muted text-muted-foreground'
         }
@@ -209,7 +209,7 @@ export function ProductCard({
                             ) : (
                                 <span
                                     className={cn(
-                                        "px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider border",
+                                        "px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-tight border",
                                         getStockBadgeColor(product.stockLabel)
                                     )}
                                 >
