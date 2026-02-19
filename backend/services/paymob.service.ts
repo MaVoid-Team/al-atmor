@@ -148,21 +148,17 @@ export class PaymobService {
     private hmacSecret: string;
 
     constructor() {
-        const secretKey = process.env.PAYMOB_SECRET_KEY;
-        const publicKey = process.env.PAYMOB_PUBLIC_KEY;
-        const integrationId = process.env.PAYMOB_INTEGRATION_ID;
-        const hmacSecret = process.env.PAYMOB_HMAC_SECRET;
+        this.secretKey = process.env.PAYMOB_SECRET_KEY || "";
+        this.publicKey = process.env.PAYMOB_PUBLIC_KEY || "";
+        this.integrationId = parseInt(process.env.PAYMOB_INTEGRATION_ID || "0", 10);
+        this.hmacSecret = process.env.PAYMOB_HMAC_SECRET || "";
+    }
 
-        if (!secretKey) throw new Error("PAYMOB_SECRET_KEY is not configured");
-        if (!publicKey) throw new Error("PAYMOB_PUBLIC_KEY is not configured");
-        if (!integrationId)
-            throw new Error("PAYMOB_INTEGRATION_ID is not configured");
-        if (!hmacSecret) throw new Error("PAYMOB_HMAC_SECRET is not configured");
-
-        this.secretKey = secretKey;
-        this.publicKey = publicKey;
-        this.integrationId = parseInt(integrationId, 10);
-        this.hmacSecret = hmacSecret;
+    private validateConfig() {
+        if (!this.secretKey) throw new Error("PAYMOB_SECRET_KEY is not configured");
+        if (!this.publicKey) throw new Error("PAYMOB_PUBLIC_KEY is not configured");
+        if (!this.integrationId) throw new Error("PAYMOB_INTEGRATION_ID is not configured");
+        if (!this.hmacSecret) throw new Error("PAYMOB_HMAC_SECRET is not configured");
     }
 
     /**
@@ -171,6 +167,7 @@ export class PaymobService {
     async createPaymentIntention(
         data: PaymentIntentionRequest
     ): Promise<PaymentIntentionResponse> {
+        this.validateConfig();
         const requestBody = {
             amount: data.amount,
             currency: data.currency,

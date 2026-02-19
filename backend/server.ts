@@ -1,10 +1,9 @@
 import dotenv from "dotenv";
+dotenv.config();
+
 import app from "./app";
 import sequelize from "./config/database"; // Adjust path if your config is elsewhere
-import { seedIfEmpty } from "./database/seeders/seed";
-
-// Load environment variables
-dotenv.config();
+import { seedIfEmpty, ensureAdminExists } from "./database/seeders/seed";
 
 const PORT = process.env.PORT || 3000;
 
@@ -18,6 +17,7 @@ async function startServer() {
     // Ensure DB has initial seed data if it's empty.
     try {
       await seedIfEmpty();
+      await ensureAdminExists(); // Always guarantee at least one admin
     } catch (err) {
       console.error("❌ Error while attempting to seed database:", err);
     }
