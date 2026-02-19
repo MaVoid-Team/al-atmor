@@ -169,17 +169,23 @@ export default function CheckoutPage() {
     const handleSaveAddress = async (addressData: Partial<Address>) => {
         setIsSavingAddress(true)
         try {
-            const newAddress = await createAddress(addressData)
+            // Include country Egypt explicitly
+            const dataToSave = { ...addressData, country: 'Egypt' }
+            const newAddress = await createAddress(dataToSave)
+
             if (newAddress) {
                 toast.success(t('addressSelection.addressCreated'))
                 setShowAddressForm(false)
                 handleSelectAddress(newAddress)
+                // Also fetch all addresses to ensure the list is updated
+                await fetchAddresses()
             } else {
                 toast.error(t('addressSelection.addressCreateFailed'))
             }
-        } catch (error) {
+        } catch (error: any) {
             console.error('Failed to create address:', error)
-            toast.error(t('addressSelection.addressCreateFailed'))
+            const errorMessage = error?.message || t('addressSelection.addressCreateFailed')
+            toast.error(errorMessage)
         } finally {
             setIsSavingAddress(false)
         }

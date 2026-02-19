@@ -6,6 +6,7 @@ import {
   Product,
   Inventory,
   User,
+  Location,
 } from "../../types/index"; // Adjust path to point to your models/index.ts
 
 export async function seed() {
@@ -17,7 +18,7 @@ export async function seed() {
     // 1. Clear existing data (Optional: prevents duplicates if you run seed twice)
     // We use TRUNCATE with CASCADE to wipe data but keep structure
     await sequelize.query(
-      'TRUNCATE TABLE "users", "inventories", "products", "categories", "manufacturers", "product_types" RESTART IDENTITY CASCADE;'
+      'TRUNCATE TABLE "users", "inventories", "products", "categories", "manufacturers", "product_types", "locations" RESTART IDENTITY CASCADE;'
     );
     console.log("🧹 Tables truncated.");
 
@@ -147,6 +148,40 @@ export async function seed() {
       specs: { weight: "480g", type: "Cheddar" },
     });
     await Inventory.create({ productId: p4.id, quantity: 30, reserved: 0 });
+
+    // ------------------------------------
+    // 6. Delivery Locations (Egypt)
+    // ------------------------------------
+    await Location.create({
+      city: "Cairo",
+      name: "New Cairo",
+      shippingRate: 50.00 / 1000, // Normalized or absolute depending on your logic
+      taxRate: 0.14
+    });
+    await Location.create({
+      city: "Cairo",
+      name: "Maadi",
+      shippingRate: 40.00 / 1000,
+      taxRate: 0.14
+    });
+    await Location.create({
+      city: "Alexandria",
+      name: "Smouha",
+      shippingRate: 30.00 / 1000,
+      taxRate: 0.14
+    });
+    await Location.create({
+      city: "Alexandria",
+      name: "Sidi Gaber",
+      shippingRate: 35.00 / 1000,
+      taxRate: 0.14
+    });
+    await Location.create({
+      city: "Giza",
+      name: "6th of October",
+      shippingRate: 45.00 / 1000,
+      taxRate: 0.14
+    });
 
     console.log("✅ Data seeded successfully.");
   } catch (error) {
