@@ -16,7 +16,7 @@ class UserAddress extends Model<
   declare id: CreationOptional<number>;
   declare userId: ForeignKey<User["id"]>;
 
-  // Saudi Arabia address fields
+  // Egypt address fields
   declare recipientName: string;
   declare streetAddress: string;
   declare district: string;
@@ -66,7 +66,7 @@ UserAddress.init(
       allowNull: false,
       field: "postal_code",
       validate: {
-        is: /^[0-9]{5}$/, // Saudi postal codes are exactly 5 digits
+        is: /^[0-9]{5}$/, // Egypt postal codes are exactly 5 digits
       },
     },
     city: {
