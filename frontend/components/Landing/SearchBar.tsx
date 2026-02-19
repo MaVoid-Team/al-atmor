@@ -79,7 +79,6 @@ export function SearchBar() {
         { name: t('privacyPolicy'), path: '/privacy', icon: Shield },
         { name: t('termsConditions'), path: '/terms', icon: FileText },
         { name: t('returnsExchanges'), path: '/returns', icon: RefreshCcw },
-        { name: t('warrantyMaintenance'), path: '/warranty', icon: Shield },
     ]
 
     // Toggle command menu with Ctrl+S

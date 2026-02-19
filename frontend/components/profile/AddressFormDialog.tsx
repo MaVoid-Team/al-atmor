@@ -100,7 +100,7 @@ export function AddressFormDialog({
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        await onSave(formData)
+        await onSave({ ...formData, country: "Egypt" } as any)
     }
 
     return (
@@ -120,6 +120,20 @@ export function AddressFormDialog({
                 </DialogHeader>
 
                 <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+                    {/* Country (Locked to Egypt) */}
+                    <div className="space-y-2">
+                        <Label htmlFor="country">
+                            {t("addressForm.country") || "Country"}
+                        </Label>
+                        <Input
+                            id="country"
+                            value="Egypt"
+                            readOnly
+                            disabled
+                            className="bg-muted"
+                        />
+                    </div>
+
                     {/* Recipient Name */}
                     <div className="space-y-2">
                         <Label htmlFor="recipientName">
@@ -216,7 +230,7 @@ export function AddressFormDialog({
                                 {t("addressForm.city")} *
                             </Label>
                             <RegionSelect
-                                countryCode="SA"
+                                countryCode="EG"
                                 value={formData.city}
                                 onChange={handleRegionChange}
                                 placeholder={t("addressForm.cityPlaceholder")}
