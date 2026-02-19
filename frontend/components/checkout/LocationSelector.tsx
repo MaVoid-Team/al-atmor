@@ -31,7 +31,7 @@ export function LocationSelector({
     isLoading = false,
 }: LocationSelectorProps) {
     const t = useTranslations("Checkout")
-    const [selectedCity, setSelectedCity] = useState<string>("")
+    const [selectedCity, setSelectedCity] = useState<string>("Aswan")
     const [locationsInCity, setLocationsInCity] = useState<Location[]>([])
 
     // Find selected location
