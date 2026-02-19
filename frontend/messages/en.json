@@ -358,6 +358,7 @@
             "editDescription": "Update your shipping address details",
             "recipientName": "Recipient Name",
             "recipientNamePlaceholder": "Mr. John Doe",
+            "country": "Country",
             "streetAddress": "Street Address",
             "streetAddressPlaceholder": "123 Main Street",
             "district": "District",
@@ -379,7 +380,16 @@
             "cancel": "Cancel",
             "save": "Save Address",
             "update": "Update Address",
-            "saving": "Saving..."
+            "saving": "Saving...",
+            "validation": {
+                "recipientRequired": "Recipient name is required",
+                "streetRequired": "Street address is required",
+                "districtRequired": "District is required",
+                "cityRequired": "City/Region is required",
+                "postalRequired": "Postal code is required",
+                "postalInvalid": "Postal code must be exactly 5 digits",
+                "phoneInvalid": "Please enter a valid phone number (min 10 digits)"
+            }
         },
         "deleteDialog": {
             "title": "Delete Address",

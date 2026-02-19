@@ -60,12 +60,14 @@ export function AddressFormDialog({
 }: AddressFormDialogProps) {
     const t = useTranslations("Profile")
     const [formData, setFormData] = useState<AddressFormData>(initialFormData)
+    const [errors, setErrors] = useState<Partial<Record<keyof AddressFormData, string>>>({})
 
     const isEditing = !!address
 
     // Reset form when dialog opens/closes or address changes
     useEffect(() => {
         if (open) {
+            setErrors({})
             if (address) {
                 setFormData({
                     recipientName: address.recipientName || "",
@@ -85,13 +87,40 @@ export function AddressFormDialog({
         }
     }, [open, address])
 
+    const validate = () => {
+        const newErrors: Partial<Record<keyof AddressFormData, string>> = {}
+
+        if (!formData.recipientName.trim()) newErrors.recipientName = t("addressForm.validation.recipientRequired")
+        if (!formData.streetAddress.trim()) newErrors.streetAddress = t("addressForm.validation.streetRequired")
+        if (!formData.district.trim()) newErrors.district = t("addressForm.validation.districtRequired")
+        if (!formData.city.trim()) newErrors.city = t("addressForm.validation.cityRequired")
+
+        if (!formData.postalCode.trim()) {
+            newErrors.postalCode = t("addressForm.validation.postalRequired")
+        } else if (!/^\d{5}$/.test(formData.postalCode)) {
+            newErrors.postalCode = t("addressForm.validation.postalInvalid")
+        }
+
+        if (formData.phoneNumber && !/^\+?[0-9\s-]{10,20}$/.test(formData.phoneNumber)) {
+            newErrors.phoneNumber = t("addressForm.validation.phoneInvalid")
+        }
+
+        setErrors(newErrors)
+        return Object.keys(newErrors).length === 0
+    }
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
         setFormData((prev) => ({ ...prev, [name]: value }))
+        // Clear error when user types
+        if (errors[name as keyof AddressFormData]) {
+            setErrors(prev => ({ ...prev, [name]: undefined }))
+        }
     }
 
     const handleRegionChange = (value: string) => {
         setFormData((prev) => ({ ...prev, city: value }))
+        if (errors.city) setErrors(prev => ({ ...prev, city: undefined }))
     }
 
     const handleDefaultChange = (checked: boolean) => {
@@ -100,7 +129,9 @@ export function AddressFormDialog({
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        await onSave({ ...formData, country: "Egypt" } as any)
+        if (validate()) {
+            await onSave({ ...formData, country: "Egypt" } as any)
+        }
     }
 
     return (
@@ -145,8 +176,11 @@ export function AddressFormDialog({
                             value={formData.recipientName}
                             onChange={handleChange}
                             placeholder={t("addressForm.recipientNamePlaceholder")}
-                            required
+                            className={errors.recipientName ? "border-destructive focus-visible:ring-destructive" : ""}
                         />
+                        {errors.recipientName && (
+                            <p className="text-xs text-destructive mt-1">{errors.recipientName}</p>
+                        )}
                     </div>
 
                     {/* Phone Number */}
@@ -161,8 +195,12 @@ export function AddressFormDialog({
                             value={formData.phoneNumber}
                             onChange={handleChange}
                             placeholder={t("addressForm.phoneNumberPlaceholder")}
+                            className={errors.phoneNumber ? "border-destructive focus-visible:ring-destructive" : ""}
                             dir="ltr"
                         />
+                        {errors.phoneNumber && (
+                            <p className="text-xs text-destructive mt-1">{errors.phoneNumber}</p>
+                        )}
                     </div>
 
                     {/* Street Address */}
@@ -176,8 +214,11 @@ export function AddressFormDialog({
                             value={formData.streetAddress}
                             onChange={handleChange}
                             placeholder={t("addressForm.streetAddressPlaceholder")}
-                            required
+                            className={errors.streetAddress ? "border-destructive focus-visible:ring-destructive" : ""}
                         />
+                        {errors.streetAddress && (
+                            <p className="text-xs text-destructive mt-1">{errors.streetAddress}</p>
+                        )}
                     </div>
 
                     {/* Building & Secondary Number */}
@@ -219,8 +260,11 @@ export function AddressFormDialog({
                             value={formData.district}
                             onChange={handleChange}
                             placeholder={t("addressForm.districtPlaceholder")}
-                            required
+                            className={errors.district ? "border-destructive focus-visible:ring-destructive" : ""}
                         />
+                        {errors.district && (
+                            <p className="text-xs text-destructive mt-1">{errors.district}</p>
+                        )}
                     </div>
 
                     {/* City (Region) & Postal Code */}
@@ -234,8 +278,11 @@ export function AddressFormDialog({
                                 value={formData.city}
                                 onChange={handleRegionChange}
                                 placeholder={t("addressForm.cityPlaceholder")}
-                                className="w-full"
+                                className={errors.city ? "border-destructive focus-visible:ring-destructive w-full" : "w-full"}
                             />
+                            {errors.city && (
+                                <p className="text-xs text-destructive mt-1">{errors.city}</p>
+                            )}
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="postalCode">
@@ -247,8 +294,11 @@ export function AddressFormDialog({
                                 value={formData.postalCode}
                                 onChange={handleChange}
                                 placeholder={t("addressForm.postalCodePlaceholder")}
-                                required
+                                className={errors.postalCode ? "border-destructive focus-visible:ring-destructive" : ""}
                             />
+                            {errors.postalCode && (
+                                <p className="text-xs text-destructive mt-1">{errors.postalCode}</p>
+                            )}
                         </div>
                     </div>
 

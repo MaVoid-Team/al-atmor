@@ -358,6 +358,7 @@
             "editDescription": "قم بتحديث تفاصيل عنوان الشحن",
             "recipientName": "اسم المستلم",
             "recipientNamePlaceholder": "السيد محمد أحمد",
+            "country": "الدولة",
             "streetAddress": "عنوان الشارع",
             "streetAddressPlaceholder": "شارع الملك فهد",
             "district": "الحي",
@@ -379,7 +380,16 @@
             "cancel": "إلغاء",
             "save": "حفظ العنوان",
             "update": "تحديث العنوان",
-            "saving": "جاري الحفظ..."
+            "saving": "جاري الحفظ...",
+            "validation": {
+                "recipientRequired": "اسم المستلم مطلوب",
+                "streetRequired": "عنوان الشارع مطلوب",
+                "districtRequired": "الحي مطلوب",
+                "cityRequired": "المدينة/المنطقة مطلوبة",
+                "postalRequired": "الرمز البريدي مطلوب",
+                "postalInvalid": "يجب أن يتكون الرمز البريدي من 5 أرقام بالضبط",
+                "phoneInvalid": "يرجى إدخال رقم هاتف صالح (10 أرقام على الأقل)"
+            }
         },
         "deleteDialog": {
             "title": "حذف العنوان",
