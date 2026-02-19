@@ -182,6 +182,18 @@ export async function seed() {
       shippingRate: 45.00 / 1000,
       taxRate: 0.14
     });
+    await Location.create({
+      city: "Aswan",
+      name: "Aswan City",
+      shippingRate: 60.00 / 1000,
+      taxRate: 0.14
+    });
+    await Location.create({
+      city: "Aswan",
+      name: "New Aswan",
+      shippingRate: 65.00 / 1000,
+      taxRate: 0.14
+    });
 
     console.log("✅ Data seeded successfully.");
   } catch (error) {

@@ -7,14 +7,14 @@ module.exports = {
       type: Sequelize.STRING(50),
       allowNull: false,
       defaultValue: 'Unknown',
-      comment: 'City name for this location (e.g., "Riyadh", "Jeddah")'
+      comment: 'City name for this location (e.g., "Cairo", "Alexandria")'
     });
 
     await queryInterface.addIndex('locations', ['city']);
 
     // Update the default location with a city
     await queryInterface.sequelize.query(`
-      UPDATE locations SET city = 'Riyadh' WHERE name = 'Default Location';
+      UPDATE locations SET city = 'Cairo' WHERE name = 'Default Location';
     `);
   },
 

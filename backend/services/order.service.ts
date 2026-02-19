@@ -261,7 +261,7 @@ export class OrderService {
           tax,
           total,
           shipping,
-          currency: "SAR",
+          currency: "EGP",
           status: "pending",
           paymentStatus: "unpaid",
           placedAt: new Date(),
@@ -335,7 +335,7 @@ export class OrderService {
             city: addressData.city,
             state: addressData.district,
             postalCode: addressData.postalCode,
-            country: 'Saudi Arabia',
+            country: 'Egypt',
             phoneNumber: addressData.phoneNumber,
             label: addressData.label,
           };
@@ -443,7 +443,7 @@ export class OrderService {
           city: addressData.city,
           state: addressData.district,
           postalCode: addressData.postalCode,
-          country: 'Saudi Arabia',
+          country: 'Egypt',
           phoneNumber: addressData.phoneNumber,
           label: addressData.label,
         };
