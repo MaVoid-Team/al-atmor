@@ -126,23 +126,9 @@ export default function SignupPage() {
                                 required
                             />
                         </div>
-                        <div className="grid gap-2 mb-4">
-                            <Label htmlFor="role">{t('role')}</Label>
-                            <Select
-                                defaultValue="customer"
-                                onValueChange={(value) => setFormData({ ...formData, role: value })}
-                            >
-                                <SelectTrigger id="role" className="w-full">
-                                    <SelectValue placeholder={t('selectRole')} />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="customer">{t('customer')}</SelectItem>
-                                    <SelectItem value="admin">{t('admin')}</SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
+
                     </CardContent>
-                    <CardFooter className="flex flex-col gap-4">
+                    <CardFooter className="flex flex-col gap-4 pt-4">
                         <Button className="w-full" disabled={isLoading}>
                             {isLoading ? "Loading..." : t('signup')}
                         </Button>

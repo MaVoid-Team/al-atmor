@@ -113,23 +113,6 @@ export function Footer() {
                         </nav>
                     </div>
 
-                    {/* Contact Info - Full width on mobile */}
-                    <div className="flex flex-col gap-3 col-span-2 md:col-span-1">
-                        <h3 className="font-semibold text-primary-foreground text-sm md:text-base">{t('contact')}</h3>
-                        <div className="flex flex-col gap-2">
-                            <div className="flex items-start gap-2 text-xs md:text-sm text-primary-foreground/80">
-                                <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
-                                <div className="flex flex-col">
-                                    <span>{t('address')}</span>
-                                    <span>{t('pobox')}</span>
-                                </div>
-                            </div>
-                            <div className="flex items-center gap-2 text-xs md:text-sm text-primary-foreground/80">
-                                <Phone className="h-4 w-4 shrink-0" />
-                                <span dir="ltr">{t('contacts')}</span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 {/* Legal Info Section */}

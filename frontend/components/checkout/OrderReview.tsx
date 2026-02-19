@@ -134,18 +134,6 @@ export function OrderReview({
                                 </div>
                             </Label>
                         </div>
-                        <div className="flex items-center space-x-3 p-3 rounded-lg border cursor-pointer hover:bg-muted/50 transition-colors">
-                            <RadioGroupItem value="card" id="card" />
-                            <Label htmlFor="card" className="flex items-center gap-3 cursor-pointer flex-1">
-                                <CreditCard className="h-5 w-5 text-primary" />
-                                <div>
-                                    <p className="font-medium">{t('review.cardPayment')}</p>
-                                    <p className="text-xs text-muted-foreground">
-                                        {t('review.cardDescription')}
-                                    </p>
-                                </div>
-                            </Label>
-                        </div>
                     </RadioGroup>
                 </div>
 
