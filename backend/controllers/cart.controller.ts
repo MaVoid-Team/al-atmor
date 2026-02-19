@@ -346,7 +346,7 @@ export class CartController {
           street: billingData.address,
           city: billingData.city,
           state: billingData.state,
-          country: "Saudi Arabia",
+          country: "Egypt",
         },
         special_reference: encodedData,
         notification_url: `${backendUrl}/webhooks/paymob/callback`,

@@ -18,27 +18,27 @@ module.exports = {
         },
         onDelete: "CASCADE",
       },
-      // Recipient name (e.g., "Mr. Mohammad S. ALI")
+      // Recipient name (e.g., "Mr. Mohamed Ahmed")
       recipient_name: {
         type: Sequelize.STRING(100),
         allowNull: false,
       },
-      // Street address (e.g., "8228 King Abdulaziz Rd.")
+      // Street address (e.g., "Ramses St.")
       street_address: {
         type: Sequelize.STRING(255),
         allowNull: false,
       },
-      // District (e.g., "2121 Alamal Dist.")
+      // District (e.g., "Maadi Dist.")
       district: {
         type: Sequelize.STRING(100),
         allowNull: false,
       },
-      // Postal code - 5 digits in Saudi Arabia (e.g., "12463")
+      // Postal code - 5 digits in Egypt (e.g., "12463")
       postal_code: {
         type: Sequelize.STRING(5),
         allowNull: false,
       },
-      // City (e.g., "RIYADH")
+      // City (e.g., "CAIRO")
       city: {
         type: Sequelize.STRING(50),
         allowNull: false,
@@ -82,7 +82,7 @@ module.exports = {
 
     // Index for faster lookups by user
     await queryInterface.addIndex("user_addresses", ["user_id"]);
-    
+
     // Index for finding default address quickly
     await queryInterface.addIndex("user_addresses", ["user_id", "is_default"]);
   },

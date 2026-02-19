@@ -14,12 +14,12 @@ module.exports = {
         type: Sequelize.STRING(100),
         allowNull: false,
         unique: true,
-        comment: 'Location name (e.g., "Riyadh", "Jeddah", "Eastern Province")'
+        comment: 'Location name (e.g., "Cairo", "Alexandria", "Aswan")'
       },
       tax_rate: {
         type: Sequelize.DECIMAL(5, 4),
         allowNull: false,
-        defaultValue: 0.15,
+        defaultValue: 0.14,
         comment: 'Tax rate as decimal (e.g., 0.15 for 15%)'
       },
       shipping_rate: {
@@ -51,7 +51,7 @@ module.exports = {
     await queryInterface.bulkInsert('locations', [
       {
         name: 'Default Location',
-        tax_rate: 0.15,
+        tax_rate: 0.14,
         shipping_rate: 0.10,
         active: true,
         created_at: new Date(),
