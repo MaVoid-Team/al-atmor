@@ -6,9 +6,9 @@ services:
     environment:
       DB_HOST: postgres
       DB_PORT: 5432
-      DB_USER: techstore
+      DB_USER: elatmor
       DB_PASS: w3uRU[{0960n
-      DB_NAME: techstore_db
+      DB_NAME: elatmor_db
       PORT: 3000
       CLOUDINARY_CLOUD_NAME: dv4enxyxo
       CLOUDINARY_API_KEY: 964321319365178
@@ -21,7 +21,7 @@ services:
       PAYMOB_IFRAME_ID: 875103
       PAYMOB_HMAC_SECRET: 9D9B6EACB69C3045F83B17E5F1D6DC60
     ports:
-      - "3397:3000"
+      - "3398:3000"
     depends_on:
       - postgres
     restart: unless-stopped
@@ -33,15 +33,15 @@ services:
     depends_on:
       - backend
     ports:
-      - "9719:3000"
+      - "9720:3000"
     restart: unless-stopped
 
   postgres:
     image: postgres:18-alpine
     environment:
-      POSTGRES_USER: techstore
+      POSTGRES_USER: elatmor
       POSTGRES_PASSWORD: w3uRU[{0960n
-      POSTGRES_DB: techstore_db
+      POSTGRES_DB: elatmor_db
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
