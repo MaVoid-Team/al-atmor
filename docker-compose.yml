@@ -45,7 +45,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "5396:5432"
+      - "5397:5432"
     restart: unless-stopped
 
 volumes:
