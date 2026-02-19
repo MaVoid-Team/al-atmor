@@ -158,7 +158,7 @@ export class UserAddressService {
   }
 
   /**
-   * Validate Saudi postal code format (5 digits)
+   * Validate Egypt postal code format (5 digits)
    */
   validatePostalCode(postalCode: string): boolean {
     return /^[0-9]{5}$/.test(postalCode);

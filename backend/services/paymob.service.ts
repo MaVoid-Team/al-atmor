@@ -181,7 +181,7 @@ export class PaymobService {
                 building: data.billing_data.building || "NA",
                 phone_number: data.billing_data.phone_number,
                 city: data.billing_data.city || "NA",
-                country: data.billing_data.country || "Saudi Arabia",
+                country: data.billing_data.country || "Egypt",
                 email: data.billing_data.email,
                 floor: data.billing_data.floor || "NA",
                 state: data.billing_data.state || "NA",

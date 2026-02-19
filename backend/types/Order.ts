@@ -68,7 +68,7 @@ Order.init(
     },
     currency: {
       type: DataTypes.STRING(3),
-      defaultValue: "SAR",
+      defaultValue: "EGP",
     },
     subtotal: {
       type: DataTypes.DECIMAL(12, 2),
