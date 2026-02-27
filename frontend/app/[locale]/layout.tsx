@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, IBM_Plex_Sans_Arabic } from "next/font/google";
 import "../globals.css";
 import { Navbar } from "@/components/Landing/Navbar";
@@ -25,18 +25,40 @@ const ibmPlexArabic = IBM_Plex_Sans_Arabic({
     display: "swap",
 });
 
+export const viewport: Viewport = {
+    themeColor: '#000000',
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
+};
+
 export const metadata: Metadata = {
     title: "Al-Atmour Group",
     description: "Premium E-commerce Store",
+    manifest: '/manifest.json',
+    appleWebApp: {
+        capable: true,
+        statusBarStyle: 'black-translucent',
+        title: 'Al-Atmor',
+    },
     icons: {
         icon: [
+            { url: '/icon-192x192.png', sizes: '192x192', type: 'image/png' },
+            { url: '/icon-512x512.png', sizes: '512x512', type: 'image/png' },
             { url: '/Logo_with_background.png', sizes: '32x32', type: 'image/png' },
-            { url: '/Logo_with_background.png', sizes: '192x192', type: 'image/png' },
         ],
-        shortcut: '/Logo_with_background.png',
+        shortcut: '/icon-192x192.png',
         apple: [
-            { url: '/Logo_with_background.png', sizes: '180x180', type: 'image/png' },
+            { url: '/icon-192x192.png', sizes: '180x180', type: 'image/png' },
         ],
+    },
+    formatDetection: {
+        telephone: false,
+    },
+    other: {
+        'mobile-web-app-capable': 'yes',
+        'apple-mobile-web-app-capable': 'yes',
+        'apple-mobile-web-app-status-bar-style': 'black-translucent',
     },
 };
 
