@@ -1,6 +1,5 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from 'next-intl/plugin';
-import withPWA from 'next-pwa';
 
 const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 
@@ -79,101 +78,8 @@ const nextConfig: NextConfig = {
           },
         ],
       },
-      {
-        source: '/manifest.json',
-        headers: [
-          {
-            key: 'Content-Type',
-            value: 'application/manifest+json',
-          },
-        ],
-      },
     ];
   },
 };
 
-// PWA Configuration
-const pwaConfig = {
-  dest: 'public',
-  disable: process.env.NODE_ENV === 'development',
-  register: true,
-  scope: '/',
-  sw: 'sw.js',
-  runtimeCaching: [
-    // Products and Categories - Cache First (24 hours)
-    {
-      urlPattern: /^https?:.*\/(api\/(products|categories|manufacturers|productTypes))/,
-      handler: 'CacheFirst',
-      options: {
-        cacheName: 'api-cache-products',
-        expiration: {
-          maxAgeSeconds: 24 * 60 * 60, // 24 hours
-          maxEntries: 200,
-        },
-      },
-    },
-    // User Orders - Network First with fallback
-    {
-      urlPattern: /^https?:.*\/api\/(orders|admin\/orders)/,
-      handler: 'NetworkFirst',
-      options: {
-        cacheName: 'api-cache-orders',
-        networkTimeoutSeconds: 3,
-        expiration: {
-          maxAgeSeconds: 5 * 60, // 5 minutes
-          maxEntries: 50,
-        },
-      },
-    },
-    // User Profile and Addresses - Stale While Revalidate
-    {
-      urlPattern: /^https?:.*\/api\/(address|users|profile)/,
-      handler: 'StaleWhileRevalidate',
-      options: {
-        cacheName: 'api-cache-user',
-        expiration: {
-          maxAgeSeconds: 24 * 60 * 60, // 24 hours
-          maxEntries: 100,
-        },
-      },
-    },
-    // Images - Cache First
-    {
-      urlPattern: /^https?:.*\.(png|jpg|jpeg|svg|gif|webp)$/,
-      handler: 'CacheFirst',
-      options: {
-        cacheName: 'image-cache',
-        expiration: {
-          maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
-          maxEntries: 300,
-        },
-      },
-    },
-    // Static assets - Cache First
-    {
-      urlPattern: /^https?:.*\/(static|_next\/static)/,
-      handler: 'CacheFirst',
-      options: {
-        cacheName: 'static-cache',
-        expiration: {
-          maxAgeSeconds: 365 * 24 * 60 * 60, // 1 year
-          maxEntries: 500,
-        },
-      },
-    },
-    // HTML pages - Network First
-    {
-      urlPattern: /^https?:.*\.html$/,
-      handler: 'NetworkFirst',
-      options: {
-        cacheName: 'html-cache',
-        networkTimeoutSeconds: 3,
-        expiration: {
-          maxAgeSeconds: 24 * 60 * 60, // 24 hours
-        },
-      },
-    },
-  ],
-};
-
-export default withPWA(pwaConfig)(withNextIntl(nextConfig));
+export default withNextIntl(nextConfig);
