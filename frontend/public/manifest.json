@@ -11,20 +11,7 @@
   "dir": "auto",
   "lang": "en-US",
   "categories": ["shopping", "productivity"],
-  "screenshots": [
-    {
-      "src": "/screenshot-1.png",
-      "sizes": "540x720",
-      "type": "image/png",
-      "form_factor": "narrow"
-    },
-    {
-      "src": "/screenshot-2.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide"
-    }
-  ],
+
   "icons": [
     {
       "src": "/icon-192x192.png",
@@ -59,8 +46,9 @@
       "url": "/en/products",
       "icons": [
         {
-          "src": "/favicon.ico",
-          "sizes": "96x96"
+          "src": "/icon-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
         }
       ]
     },
@@ -71,8 +59,9 @@
       "url": "/en/orders",
       "icons": [
         {
-          "src": "/favicon.ico",
-          "sizes": "96x96"
+          "src": "/icon-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
         }
       ]
     }
